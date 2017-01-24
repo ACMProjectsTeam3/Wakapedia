@@ -1,0 +1,2 @@
+# Wakapedia
+A MC Wikipedia.
