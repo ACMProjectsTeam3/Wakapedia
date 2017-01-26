@@ -2,8 +2,9 @@ import string
 import markovify
 import nltk
 import re
+import grammar_check
 
-#markovify class which actually creates the sentneces
+
 class POSifiedText(markovify.Text):
     def word_split(self, sentence):
         words = re.split(self.word_split_pattern, sentence)
@@ -13,21 +14,28 @@ class POSifiedText(markovify.Text):
         sentence = " ".join(word.split("::")[0] for word in words)
         return sentence
 
-#opens file (specific to my computer for now)
-with open("/Users/abhishaikemahajan/Documents/RandomTextFiles/TEXT.txt") as f:
-    text = f.read()
-
-#cleans up text file (regex function will be primarily used to deal with the brackets in wikipedia articles [citations])
-printable = set(string.printable)
-FormattedText = filter(lambda x: x in printable, text)
-FormattedText = re.sub(r'\[.+?\]\s*', '', FormattedText)
-
-#creates the markov model. State_size basically refers to how 'natural sounding' a generated sentence will be. Going past 7 leads to diminishing returns, but for now, it must stay beneath 3 due to how little data we have. Little is relative btw, I'm using a corpus of an entire book (The Metamorphosis), and going past 3 leads to identical sentences being generated.
-text_model = POSifiedText(FormattedText, state_size = 2)
-
-#for loops that display generated sentences. First one displays any sentence of any length, second one generates sentences underneath a certain character length (230 for now). 
-for i in range(10):
-	print(text_model.make_sentence())
-  
-for i in range(10):
-	(text_model.make_short_sentence(230))
+def CreateSentences(FILE_PATH, NUMSENTENCES):
+	with open(FILE_PATH) as f:
+	    text = f.read()
+	FormattedText = re.sub(r'\[.+?\]\s*', '', text)
+	FormattedText = FormattedText.replace('"', "")
+	FormattedText = FormattedText.replace("   ", " ")
+	FormattedText = FormattedText.replace("    ", " ")
+	FormattedText = re.sub( '\s+', ' ', FormattedText ).strip()
+	SHERLOCK = POSifiedText(FormattedText, state_size = 4)
+	text = ""
+	total = ""
+	tool = grammar_check.LanguageTool('en-GB')
+	text = ""
+	total = ""
+	for i in range(NUMSENTENCES):
+		text = SHERLOCK.make_sentence(tries = 1)
+		while (text == None):
+			text = SHERLOCK.make_sentence(tries = 1)
+		text = text.decode("utf8")
+		matches = tool.check(text)
+		text = grammar_check.correct(text, matches)
+		print text,
+		NewLine = randint(0,30)
+		if NewLine == 1 or NewLine == 2 or NewLine == 3:
+			print "\n"
