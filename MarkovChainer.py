@@ -23,11 +23,8 @@ def CreateSentences(FILE_PATH, NUMSENTENCES):
 	FormattedText = FormattedText.replace("    ", " ")
 	FormattedText = re.sub( '\s+', ' ', FormattedText ).strip()
 	SHERLOCK = POSifiedText(FormattedText, state_size = 4)
-	text = ""
-	total = ""
 	tool = grammar_check.LanguageTool('en-GB')
 	text = ""
-	total = ""
 	for i in range(NUMSENTENCES):
 		text = SHERLOCK.make_sentence(tries = 1)
 		while (text == None):
