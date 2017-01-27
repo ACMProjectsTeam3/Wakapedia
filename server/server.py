@@ -6,7 +6,7 @@ Purpose:
     them out to the more interesting parts of the program.
 """
 
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -29,3 +29,22 @@ def serve_homepage():
 	Will return the wikipedia homepage.
 	"""
 	return 'homepage'
+
+@app.route('/wiki/')
+def serve_wikipage():
+	"""
+	Serves a wikipedia page. This is where things get real.
+	
+	Parameters:
+	None.
+	
+	Returns:
+	None.
+	
+	Preconditions:
+	Not really any.
+
+	Postconditions:
+	Returns the MC Wiki page.
+	"""
+	return request.path
