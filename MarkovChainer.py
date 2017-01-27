@@ -3,6 +3,7 @@ import markovify
 import nltk
 import re
 import grammar_check
+import random
 
 
 class POSifiedText(markovify.Text): #part of the markovify library, basically just allows me to perform markov chain operations using the POS (part of speech) tagging function in NLTK. In simpler terms, it makes everything slightly slower, but also helps generate more gramatically sound sentences
@@ -32,6 +33,6 @@ def CreateSentences(FILE_PATH, NUMSENTENCES): #definition to generate text. Firs
 		matches = tool.check(text) #checks the grammar of the generated text
 		text = grammar_check.correct(text, matches) #corrects any mistakes the grammar checker found in the text
 		print text, #prints text. The comma is just there to ensure that no new line is created
-		NewLine = randint(0,30) #there is a 10% chance that a new line is created every time a sentence is created. This just makes the generated text not a huge block, and a little more natural looking 
+		NewLine = random.randint(0,30) #there is a 10% chance that a new line is created every time a sentence is created. This just makes the generated text not a huge block, and a little more natural looking 
 		if NewLine == 1 or NewLine == 2 or NewLine == 3:
 			print "\n"
