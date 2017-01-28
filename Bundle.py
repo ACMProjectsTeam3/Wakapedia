@@ -1,5 +1,5 @@
 """
-This encapsulate all the components of a website.
+This encapsulates all the components of a website.
 """
 class Site(object):
     def __init__(self, html, CSS, js):
@@ -10,7 +10,7 @@ class Site(object):
 		# multiple css files.
         self.CSS = CSS
 		# This is also a list of strings that represent potentially
-		# multiple css files.
+		# multiple js files.
         self.js = js
 
 """
@@ -20,8 +20,8 @@ pass it down the line. Imagine an assembly line.
 """
 class Bundle(object):
     def __init__(self, txt, link, site):
-		# This is a list of strings, where each string is the contents of
-		# a paragraph.
+		# This is a dictionary of strings, where each string is the contents of
+		# a paragraph and its key is the token where it should be in the HTML.
         self.text = txt
 		# This is the URL of the page we need to get. It's a string.
         self.URL = link
