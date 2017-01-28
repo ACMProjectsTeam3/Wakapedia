@@ -2,7 +2,7 @@ import string
 import markovify
 import nltk
 import re
-import grammar_check
+import language_check
 import random
 
 
@@ -23,16 +23,28 @@ def CreateSentences(FILE_PATH, NUMSENTENCES): #definition to generate text. Firs
 	FormattedText = FormattedText.replace("    ", " ") #takes out every 3 spaces, which sometimes happens 
 	FormattedText = re.sub( '\s+', ' ', FormattedText ).strip() #gonna be honest, I have zero clue what this does
 	SHERLOCK = POSifiedText(FormattedText, state_size = 4) #creates a markov model (using POS) from the formatted test of state_size 4
-	tool = grammar_check.LanguageTool('en-GB') #creates a grammar checker object
-	text = "" #creates an empty string object
+	with open("/Users/abhishaikemahajan/Documents/RandomTextFiles/SATIRE.txt") as f:
+		text = f.read()
+	FormattedText = re.sub(r'\[.+?\]\s*', '', text)
+	FormattedText = FormattedText.replace("   ", " ")
+	FormattedText = FormattedText.replace("    ", " ")
+	FormattedText = re.sub( '\s+', ' ', FormattedText ).strip()
+	SATIRE = POSifiedText(FormattedText, state_size = 4) 
+	tool = language_check.LanguageTool('en-GB')
+	text = ""
+	SHERLOCK = markovify.combine([SHERLOCK, SATIRE], [ .99, .01 ])
 	for i in range(NUMSENTENCES): #creates 'NUMSENTENCES' sentence, where NUMSENTENCES is an integer
 		text = SHERLOCK.make_sentence(tries = 1) #this, along with the next while loop, basically just forces the markov model to try an infinite number of times to have SOMETHING come out. 
 		while (text == None):
 			text = SHERLOCK.make_sentence(tries = 1)
-		text = text.decode("utf8") #this fixes a problem that I'm not sure why we have. For some reason, the text is read in as a format that the grammar checker just dislikes. So, this convertes it a format that it likes. 
 		matches = tool.check(text) #checks the grammar of the generated text
-		text = grammar_check.correct(text, matches) #corrects any mistakes the grammar checker found in the text
-		print text, #prints text. The comma is just there to ensure that no new line is created
+		text = language_check.correct(text, matches) #corrects any mistakes the grammar checker found in the text
+		print (text, end="") #prints text. The 'end' is just there to ensure that no new line is created
 		NewLine = random.randint(0,30) #there is a 10% chance that a new line is created every time a sentence is created. This just makes the generated text not a huge block, and a little more natural looking 
 		if NewLine == 1 or NewLine == 2 or NewLine == 3:
-			print "\n"
+			print ("\n")
+
+
+			
+			
+			
