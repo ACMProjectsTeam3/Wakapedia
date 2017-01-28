@@ -1,5 +1,5 @@
 """
-This gets the texts in paragraphs of a webpage given a URL
+This gets the texts in paragraphs of a webpage given a Bundle object
 Returns Bundle object after updating text and HTML fields
 """
 
@@ -8,9 +8,9 @@ from Bundle import Site, Bundle
 import urllib
 
   ### bun:Bundle object from Bundle.py
-def cleanhtml(bun):
+def scraper(bun):
     ### opens url so it's like a file
-  link = urllib.urlopen(bun.URL)
+  link = urllib.request.urlopen(bun.URL)
     ### instantiate BeautifulSoup object
   soup = BeautifulSoup(link, 'lxml')
     ### dictionary of paragraphs
