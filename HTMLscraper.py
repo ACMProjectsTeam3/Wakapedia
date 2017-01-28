@@ -1,14 +1,14 @@
+from bs4 import BeautifulSoup
+from Bundle import Site, Bundle
+import urllib
+
 """
 This gets the texts in paragraphs of a webpage given a Bundle object
 Returns Bundle object after updating text and HTML fields
 """
 
-from bs4 import BeautifulSoup
-from Bundle import Site, Bundle
-import urllib
-
   ### bun:Bundle object from Bundle.py
-def scraper(bun):
+def scrape(bun):
     ### opens url so it's like a file
   link = urllib.request.urlopen(bun.URL)
     ### instantiate BeautifulSoup object

@@ -1,5 +1,5 @@
 """
-This encapsulate all the components of a website.
+This encapsulates all the components of a website.
 """
 class Site(object):
     def __init__(self, html, CSS, js):
