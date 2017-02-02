@@ -20,7 +20,6 @@ word_to_int = dict((w, i) for i, w in enumerate(unique_words))
 int_to_word = dict((i, w) for i, w in enumerate(unique_words))
 raw_text = rawtext.split()
 n_words = len(raw_text)
-print n_words
 
 seq_length = 100
 dataX = []
@@ -32,8 +31,6 @@ for i in xrange(0, n_words - seq_length):
     dataY.append(word_to_int[seq_out])
 
 n_patterns = len(dataX)
-print 'Total patterns:', n_patterns
-
 
 X_train = np.reshape(dataX, (n_patterns, seq_length, 1))/float(n_vocab)
 Y_train = np_utils.to_categorical(dataY)
@@ -47,7 +44,6 @@ model.add(LSTM(100))
 model.add(Dropout(0.2))
 model.add(Dense(Y_train.shape[1], activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adagrad')
-
 print model.summary()
 
 filepath="word-weights-improvement-{epoch:02d}-{loss:.4f}.hdf5"
@@ -56,8 +52,7 @@ callbacks_list = [checkpoint]
 
 model.fit(X_train, Y_train, nb_epoch=10, batch_size=1, callbacks=callbacks_list)
 
-
-
+#EVERYTHING BENEATH HERE IS NOT FOR NETWORK CREATION, BUT FOR TESTING THE CREATED NETWORK (using the weights)
 
 # load the network weights
 filename = "word-weights-improvement-05-7.2198.hdf5"
@@ -75,7 +70,6 @@ x = np.reshape(pattern, (1, len(pattern), 1))
 x = x/float(n_vocab)
 prediction = model.predict(x)
 index = np.argmax(prediction)
-
 
 for i in xrange(20):
 	x = np.reshape(pattern, (1, len(pattern), 1))
