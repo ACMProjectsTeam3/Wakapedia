@@ -19,28 +19,39 @@ def scrape(bun):
   token = 'Waka'
   count = 0
 
+    ### all the paragraph texts in one string
+  alltxt = ''
     ### iterate thru the <p> tags
   for para in soup.find_all('p'):
       ### put raw text in dictionary
     doc[token+str(count)] = para.get_text()
+    alltxt = alltxt + para.get_text()
       ### replace <p> contents with a token
     para.string = token + str(count)
       ### increment the token
     count+=1
+ 
+    ### get the list of categories
+  cats = []
+  for cat in soup.find('div', {'id': 'catlinks'}).find('ul').findAll('li'):
+      cats.append(cat.get_text())
 
     ### update Bundle with raw text
-  bun.text = doc
+  bun.paragraphs = doc
+  bun.text = alltxt
     ### update Bundle with tokened html
   bun.site.html = str(soup)
+    ### update Bundle with categories
+  bun.categories = cats
     ### retrieve CSS file(s) links and update Bundle
-  bun.site.CSS = soup.find_all('link', rel="stylesheet")
+  bun.site.CSS = soup.find_all('link', rel='stylesheet')
     ### retrieve js file(s) links and update Bundle
-  bun.site.js = soup.find_all('script', src=re.compile(".*"))
+  bun.site.js = soup.find_all('script', src=re.compile('.*'))
   return bun
 
-x = Bundle('', 'https://en.wikipedia.org/wiki/Alpaca', Site('','',''))
+x = Bundle('', '', 'https://en.wikipedia.org/wiki/Alpaca', Site('','',''), [])
 x = scrape(x)
-f = open('index.html', 'w')
 print (x.site.CSS)
 print (x.site.js)
-f.write(x.site.html)
+print (x.categories)
+
