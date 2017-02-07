@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from Bundle import Site, Bundle
-import urllib
+import urllib, re
 
 """
 This gets the texts in paragraphs of a webpage given a Bundle object
@@ -26,10 +26,21 @@ def scrape(bun):
       ### replace <p> contents with a token
     para.string = token + str(count)
       ### increment the token
-    count+=1                          
+    count+=1
 
     ### update Bundle with raw text
   bun.text = doc
     ### update Bundle with tokened html
   bun.site.html = str(soup)
+    ### retrieve CSS file(s) links and update Bundle
+  bun.site.CSS = soup.find_all('link', rel="stylesheet")
+    ### retrieve js file(s) links and update Bundle
+  bun.site.js = soup.find_all('script', src=re.compile(".*"))
   return bun
+
+x = Bundle('', 'https://en.wikipedia.org/wiki/Alpaca', Site('','',''))
+x = scrape(x)
+f = open('index.html', 'w')
+print (x.site.CSS)
+print (x.site.js)
+f.write(x.site.html)
