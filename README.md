@@ -27,7 +27,9 @@ CreateSentences(FILE_PATH_OF_INPUT, FILE_PATH_OF_OLDSTUFF, NUMSENTENCES):
 ```
 FILE_PATH_OF_INPUT is the file path of the text file you want the generated text to focus on
 
-FILE_PATH_OF_INPUT is the file path of the text file you want the generated text to use as a word corpus, but not as a main focus of the generated sentences
+FILE_PATH_OF_OLDSTUFF is the file path of the text file you want the generated text to use as a word corpus, but not as a main focus of the generated sentences
+
+NUMSENTENCES is the number of sentences you want generated
 
 *************
 Both examples used the collective works of Sherlock Holmes and a political essay my friend wrote (which is placed at a much heigher weight in the Markov Chain than the Holmes stuff)
