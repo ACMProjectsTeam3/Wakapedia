@@ -3,8 +3,7 @@
 
 DEFINITIONS:
 ************************************************************************
-
-run this thing with: 
+Training Method:
 ```
 TrainAndSave("/Users/abhishaikemahajan/Documents/Wakapedia/WIKITEXT.txt", '/Users/abhishaikemahajan/Documents/Wakapedia/texter.txt')
 ```
@@ -18,7 +17,7 @@ FILENAME is created on the spot, and is a json text file of the markov chain cre
 FILEPATH is the training corpus 
 
 ************************************************************************************************************************
-
+Generating Method
 ```
 CreateSentences("/Users/abhishaikemahajan/Documents/RandomTextFiles/META.txt", '/Users/abhishaikemahajan/Documents/Wakapedia/texter.txt', 20)
 ```
