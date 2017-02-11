@@ -15,36 +15,39 @@ class POSifiedText(markovify.Text): #part of the markovify library, basically ju
         sentence = " ".join(word.split("::")[0] for word in words)
         return sentence
 
-def CreateSentences(FILE_PATH, NUMSENTENCES): #definition to generate text. First parameter is the file-path to the .txt file you'll be using to train the model, the second parameter is how many sentences you want out of the markov model.
-	with open(FILE_PATH) as f:
+def CreateSentences(FILE_PATH_OF_INPUT, FILE_PATH_OF_OLDSTUFF, NUMSENTENCES): #definition to generate text. First parameter is the file-path to the .txt file you'll be using to train the model, the second parameter is how many sentences you want out of the markov model.
+	with open(FILE_PATH_OF_INPUT) as f:
 	    text = f.read() #open text file
-	FormattedText = re.sub(r'\[.+?\]\s*', '', text) #mostly for wikipedia articles, just takes out the brackets + everything between the brackets. This is kind of a 'hacky' solution to the problem of the markov model creating only one bracket and never 'closing it' (which also happens with quotations btw), so we should fix this later
-	FormattedText = FormattedText.replace("   ", " ") #takes out every 2 spaces, which sometimes happens 
-	FormattedText = FormattedText.replace("    ", " ") #takes out every 3 spaces, which sometimes happens 
-	FormattedText = re.sub( '\s+', ' ', FormattedText ).strip() #gonna be honest, I have zero clue what this does
-	SHERLOCK = POSifiedText(FormattedText, state_size = 4) #creates a markov model (using POS) from the formatted test of state_size 4
-	with open("/Users/abhishaikemahajan/Documents/RandomTextFiles/SATIRE.txt") as f:
-		text = f.read()
-	FormattedText = re.sub(r'\[.+?\]\s*', '', text)
-	FormattedText = FormattedText.replace("   ", " ")
-	FormattedText = FormattedText.replace("    ", " ")
-	FormattedText = re.sub( '\s+', ' ', FormattedText ).strip()
-	SATIRE = POSifiedText(FormattedText, state_size = 4) 
+	FormattedText = re.sub( '\s+', ' ', text ).strip() #gonna be honest, I have zero clue what this does
+	NEW_MODEL = POSifiedText(FormattedText, state_size = 4) #creates a markov model (using POS) from the formatted test of state_size 4
+	with open(FILE_PATH_OF_OLDSTUFF) as json_file:  
+		model2_json = json.load(json_file)
+	OLD_MODEL = POSifiedText.from_json(model2_json)
 	tool = language_check.LanguageTool('en-GB')
 	text = ""
-	SHERLOCK = markovify.combine([SHERLOCK, SATIRE], [ .99, .01 ])
+	NEW_MODEL = markovify.combine([NEW_MODEL, OLD_MODEL], [ .80, .20 ])
 	for i in range(NUMSENTENCES): #creates 'NUMSENTENCES' sentence, where NUMSENTENCES is an integer
-		text = SHERLOCK.make_sentence(tries = 1) #this, along with the next while loop, basically just forces the markov model to try an infinite number of times to have SOMETHING come out. 
+		text = NEW_MODEL.make_sentence(tries = 1) #this, along with the next while loop, basically just forces the markov model to try an infinite number of times to have SOMETHING come out. 
 		while (text == None):
-			text = SHERLOCK.make_sentence(tries = 1)
+			text = NEW_MODEL.make_sentence(tries = 1)
 		matches = tool.check(text) #checks the grammar of the generated text
 		text = language_check.correct(text, matches) #corrects any mistakes the grammar checker found in the text
+		print (" ", end = "")
 		print (text, end="") #prints text. The 'end' is just there to ensure that no new line is created
 		NewLine = random.randint(0,30) #there is a 10% chance that a new line is created every time a sentence is created. This just makes the generated text not a huge block, and a little more natural looking 
 		if NewLine == 1 or NewLine == 2 or NewLine == 3:
 			print ("\n")
 
 
-			
-			
-			
+def TrainAndSave(FILEPATH, FILENAME):
+	corpus = open(FILEPATH).read()
+	corpus = re.sub( '\s+', ' ', corpus ).strip()
+	text_model = POSifiedText(corpus, state_size=4)
+	model1_json = text_model.to_json()
+	with open(FILENAME, 'w') as outfile:  
+	    json.dump(model1_json, outfile)
+
+
+
+
+
