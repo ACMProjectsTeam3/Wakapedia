@@ -11,7 +11,6 @@ Returns Bundle object after updating text and HTML fields
 def scrape(bun):
     ### opens url so it's like a file
   link = urllib.request.urlopen(bun.URL)
-    ### instantiate BeautifulSoup object
   soup = BeautifulSoup(link, 'lxml')
     ### dictionary of paragraphs
   doc = {}
@@ -28,30 +27,28 @@ def scrape(bun):
     alltxt = alltxt + para.get_text()
       ### replace <p> contents with a token
     para.string = token + str(count)
-      ### increment the token
     count+=1
  
     ### get the list of categories
   cats = []
   for cat in soup.find('div', {'id': 'catlinks'}).find('ul').findAll('li'):
-      cats.append(cat.get_text())
+      cats.append('https://en.wikipedia.org' + cat.find('a')['href'])
 
-    ### update Bundle with raw text
+    ### update stuff in Bundle
   bun.paragraphs = doc
   bun.text = alltxt
-    ### update Bundle with tokened html
   bun.site.html = str(soup)
-    ### update Bundle with categories
   bun.categories = cats
-    ### retrieve CSS file(s) links and update Bundle
+    ### retrieve CSS file(s) links
   bun.site.CSS = soup.find_all('link', rel='stylesheet')
-    ### retrieve js file(s) links and update Bundle
+    ### retrieve js file(s) links
   bun.site.js = soup.find_all('script', src=re.compile('.*'))
   return bun
 
+"""
 x = Bundle('', '', 'https://en.wikipedia.org/wiki/Alpaca', Site('','',''), [])
 x = scrape(x)
-print (x.site.CSS)
-print (x.site.js)
+
 print (x.categories)
+"""
 
