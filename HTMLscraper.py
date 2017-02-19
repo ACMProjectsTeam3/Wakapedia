@@ -11,6 +11,7 @@ Returns Bundle object after updating text and HTML fields
 def scrape(bun):
     ### opens url so it's like a file
   link = urllib.request.urlopen(bun.URL)
+
   soup = None
     ### flag for retrieving categories (or not)
   if bun.categories:
@@ -18,7 +19,7 @@ def scrape(bun):
   else:
     p_tags = SoupStrainer('p')
     soup = BeautifulSoup(link, 'lxml', parse_only=p_tags)
-  
+
     ### dictionary of paragraphs
   doc = {}
     ### add token and count to replace paragraphs in HTML
@@ -41,7 +42,7 @@ def scrape(bun):
   if bun.categories:
     for cat in soup.find('div', {'id': 'catlinks'}).find('ul').findAll('li'):
       cats.append('https://en.wikipedia.org' + cat.find('a')['href'])
-  
+
     ### update stuff in Bundle
   bun.paragraphs = doc
   bun.text = alltxt

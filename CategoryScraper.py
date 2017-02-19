@@ -17,6 +17,7 @@ def scrape_category(bun):
     wikilinks = []
     for link in bun.categories:
         wikilinks += scrape_category_page(link)
+
     print (len(wikilinks))
 
       ### sends off the links in the list to be scraped to get the text from their page.
@@ -42,12 +43,10 @@ def scrape_category_page(url):
     link = soup.find('a', href=True, text='next page')
     if (link != None):
         links += scrape_category_page('https://en.wikipedia.org' + link['href'])
-        
-      ### lambda function that will get tags with class 'mw-category' and not include 'mw-category-group'
-    divtag = soup.findAll(lambda tag: tag.name == 'div' and tag.get('class') == ['mw-category'])
-    if len(divtag) == 0:
-        return []
-    for obj in divtag[len(divtag)-1].findAll('a'):
+
+      ### sends links of wikipedia articles in the category to be scraped
+    pages_in_category = soup.find('div', {'id':'mw-pages'}).find('div',{'class':'mw-category'})
+    for obj in pages_in_category.findAll('a'):
         links.append('https://en.wikipedia.org' + obj['href'])
     return links
 
