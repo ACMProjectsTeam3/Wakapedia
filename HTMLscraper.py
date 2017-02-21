@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup, SoupStrainer
-from Bundle import Site, Bundle
+from Bundle import Bundle
 import urllib, re, time
 
 """
@@ -46,17 +46,14 @@ def scrape(bun):
     ### update stuff in Bundle
   bun.paragraphs = doc
   bun.text = alltxt
-  bun.site.html = str(soup)
+  bun.html = str(soup)
   bun.categories = cats
-    ### retrieve CSS file(s) links
-  bun.site.CSS = soup.find_all('link', rel='stylesheet')
-    ### retrieve js file(s) links
-  bun.site.js = soup.find_all('script', src=re.compile('.*'))
+
+  #bun.site.CSS = soup.find_all('link', rel='stylesheet')
+  #bun.site.js = soup.find_all('script', src=re.compile('.*'))
   return bun
 
-"""
-x = Bundle(None, None, 'https://en.wikipedia.org/wiki/Alpaca', Site('','',''), None)
+x = Bundle('https://en.wikipedia.org/wiki/Alpaca', True)
 x = scrape(x)
 
-print (x.categories)
-"""
+print (x.text)

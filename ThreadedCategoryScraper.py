@@ -1,8 +1,9 @@
-from Bundle import Site, Bundle
+from Bundle import Bundle
 from bs4 import BeautifulSoup, SoupStrainer
 from HTMLscraper import scrape
 import urllib, sys, threading
 
+    ### Thread object needed to make threads with urls
 class catThread(threading.Thread):
     def __init__(self, url):
         threading.Thread.__init__(self)
@@ -64,7 +65,7 @@ def scrape_category_page(url):
       ### sends links of wikipedia articles in the category to be scraped
     pages_in_category = soup.find('div', {'id':'mw-pages'}).find('div',{'class':'mw-category'})
     for obj in pages_in_category.findAll('a'):
-        tempbun = scrape(Bundle('', '', 'https://en.wikipedia.org' + obj['href'], Site('', '', ''), False))
+        tempbun = scrape(Bundle('https://en.wikipedia.org' + obj['href'], False))
         with lock:
             ALL_TEXT += tempbun.text.translate(non_bmp_map)
             print (count)

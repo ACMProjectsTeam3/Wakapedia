@@ -1,4 +1,4 @@
-from Bundle import Site, Bundle
+from Bundle import Bundle
 from bs4 import BeautifulSoup
 from HTMLscraper import scrape
 import urllib, sys
@@ -24,7 +24,7 @@ def scrape_category(bun):
       ### Puts it all in one string.
     count = 1
     for page in wikilinks:
-        tempbun = scrape(Bundle('', '', page, Site('', '', ''), False))
+        tempbun = scrape(Bundle(page, False))
         print (count)
         count+=1
         ALL_TEXT += tempbun.text.translate(non_bmp_map)
