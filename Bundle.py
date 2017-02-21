@@ -4,6 +4,7 @@ reconstructor, etc). Modify what your component needs to change, then
 pass it down the line. Imagine an assembly line.
 """
 class Bundle(object):
+    __slots__ = ['text', 'paragraphs', 'URL', 'html', 'categories']
             # instantiate with URL of Wikipedia page
             # ctg is a flag, if it's true then categories should be retrieved
     def __init__(self, link, ctg):
