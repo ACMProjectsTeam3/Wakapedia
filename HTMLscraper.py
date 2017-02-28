@@ -32,7 +32,7 @@ def scrape(bun):
   for para in soup.find_all('p'):
       ### put raw text in dictionary
     doc[token+str(count)] = para.get_text()
-    alltxt = alltxt + para.get_text()
+    alltxt = alltxt + para.get_text() + ' '
       ### replace <p> contents with a token
     para.string = token + str(count)
     count+=1
@@ -53,7 +53,9 @@ def scrape(bun):
   #bun.site.js = soup.find_all('script', src=re.compile('.*'))
   return bun
 
+"""
 x = Bundle('https://en.wikipedia.org/wiki/Alpaca', True)
 x = scrape(x)
 
 print (x.text)
+"""
