@@ -15,10 +15,10 @@ def scrape(bun):
   soup = None
     ### flag for retrieving categories (or not)
   if bun.categories:
-    soup = BeautifulSoup(link, 'lxml')
+    soup = BeautifulSoup(link.read().decode('utf-8'), 'lxml')
   else:
     p_tags = SoupStrainer('p')
-    soup = BeautifulSoup(link, 'lxml', parse_only=p_tags)
+    soup = BeautifulSoup(link.read().decode('utf-8'), 'lxml', parse_only=p_tags)
 
     ### dictionary of paragraphs
   doc = {}
@@ -43,14 +43,18 @@ def scrape(bun):
     for cat in soup.find('div', {'id': 'catlinks'}).find('ul').findAll('li'):
       cats.append('https://en.wikipedia.org' + cat.find('a')['href'])
 
+  for css in soup.find_all('link', rel='stylesheet'):
+    css['href'] = '//en.wikipedia.org/' + css['href']
+
+  for js in soup.find_all('script', src=re.compile('.*')):
+    js['src'] = '//en.wikipedia.org/' + js['src']
+
     ### update stuff in Bundle
   bun.paragraphs = doc
   bun.text = alltxt
-  bun.html = str(soup)
+  bun.html = str(soup.encode('ascii', 'xmlcharrefreplace').decode('utf-8'))
   bun.categories = cats
 
-  #bun.site.CSS = soup.find_all('link', rel='stylesheet')
-  #bun.site.js = soup.find_all('script', src=re.compile('.*'))
   return bun
 
 """
