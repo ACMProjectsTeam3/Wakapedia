@@ -4,6 +4,7 @@ import urllib, re, time
 
 """
 This gets the texts in paragraphs of a webpage given a Bundle object
+Also retrieves Categories of a Wikipedia article
 Returns Bundle object after updating text and HTML fields
 """
 
