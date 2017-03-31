@@ -46,12 +46,15 @@ class EditedTextClass(POSifiedText):
 
 
 def CreateSentences(Bundle): #definition to generate text. First parameter is the file-path to the .txt file you'll be using to train the model, the second parameter is how many sentences you want out of the markov model.
-	FILE_PATH_OF_OLDSTUFF = random.choice(Bundle.categories)
-	FILE_PATH_OF_OLDSTUFF = FILE_PATH_OF_OLDSTUFF[FILE_PATH_OF_OLDSTUFF.find("Category:") + 9:]
-	FILE_PATH_OF_OLDSTUFF = "Categories/%s.mc" % FILE_PATH_OF_OLDSTUFF
-	with open(FILE_PATH_OF_OLDSTUFF) as json_file:  
-		model2_json = json.load(json_file)
-	NEW_MODEL = EditedTextClass.from_json(model2_json)
+	NEW_MODEL = None
+	for x in Bundle.categories:
+		FILE_PATH_OF_OLDSTUFF = x
+		FILE_PATH_OF_OLDSTUFF = FILE_PATH_OF_OLDSTUFF[FILE_PATH_OF_OLDSTUFF.find("Category:") + 9:]
+		FILE_PATH_OF_OLDSTUFF = "Categories/%s.mc" % FILE_PATH_OF_OLDSTUFF
+		with open(FILE_PATH_OF_OLDSTUFF) as json_file:  
+			model2_json = json.load(json_file)
+		OLD_MODEL = EditedTextClass.from_json(model2_json)
+		NEW_MODEL = markovify.combine(OLD_MODEL, NEW_MODEL)
 	tool = language_check.LanguageTool('en-GB')
 	Text = ""
 	paragraphText = ""
@@ -67,7 +70,6 @@ def CreateSentences(Bundle): #definition to generate text. First parameter is th
 		Bundle.paragraphs[key] = paragraphText
 		paragraphText = ""
 	return Bundle
-		
 		
 		
 
