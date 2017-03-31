@@ -21,8 +21,8 @@ def CreateSentences(Bundle): #definition to generate text. Firstword = word.repl
 		FILE_PATH_OF_OLDSTUFF = FILE_PATH_OF_OLDSTUFF[FILE_PATH_OF_OLDSTUFF.find("Category:") + 9:]
 		FILE_PATH_OF_OLDSTUFF = "Categories/%s.mc" % FILE_PATH_OF_OLDSTUFF
 		for letter in FILE_PATH_OF_OLDSTUFF:
-		if letter == '_':
-			FILE_PATH_OF_OLDSTUFF = FILE_PATH_OF_OLDSTUFF.replace(letter, ' ')
+			if letter == '_':
+				FILE_PATH_OF_OLDSTUFF = FILE_PATH_OF_OLDSTUFF.replace(letter, ' ')
 		with open(FILE_PATH_OF_OLDSTUFF) as json_file:  
 			model2_json = json.load(json_file)
 		OLD_MODEL = markovify.Text.from_json(model2_json)
