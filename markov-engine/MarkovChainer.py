@@ -9,19 +9,24 @@ import os
 import random
 from random import randint
 
+    
 
 def CreateSentences(Bundle): #definition to generate text. Firstword = word.replace(letter,"!") parameter is the file-path to the .txt file you'll be using to train the model, the second parameter is how many sentences you want out of the markov model.
-	FILE_PATH_OF_OLDSTUFF = None
-	while (FILE_PATH_OF_OLDSTUFF == None):	
-		FILE_PATH_OF_OLDSTUFF = random.choice(Bundle.categories)
-	FILE_PATH_OF_OLDSTUFF = FILE_PATH_OF_OLDSTUFF[FILE_PATH_OF_OLDSTUFF.find("Category:") + 9:]
-	for letter in FILE_PATH_OF_OLDSTUFF:
+	FILE_PATH_OF_OLDSTUFF = None 
+	NEW_MODEL = None 
+		for x in Bundle.categories:
+			FILE_PATH_OF_OLDSTUFF = x
+			if (FILE_PATH_OF_OLDSTUFF == None):	
+				continue
+			FILE_PATH_OF_OLDSTUFF = FILE_PATH_OF_OLDSTUFF[FILE_PATH_OF_OLDSTUFF.find("Category:") + 9:]
+			FILE_PATH_OF_OLDSTUFF = "Categories/%s.mc" % FILE_PATH_OF_OLDSTUFF
+			for letter in FILE_PATH_OF_OLDSTUFF:
 			if letter == '_':
 				FILE_PATH_OF_OLDSTUFF = FILE_PATH_OF_OLDSTUFF.replace(letter, ' ')
- 	FILE_PATH_OF_OLDSTUFF = "Categories/%s.mc" % FILE_PATH_OF_OLDSTUFF
- 	with open(FILE_PATH_OF_OLDSTUFF) as json_file:  
- 		model2_json = json.load(json_file)
- 	NEW_MODEL = markovify.Text.from_json(model2_json)
+			with open(FILE_PATH_OF_OLDSTUFF) as json_file:  
+				model2_json = json.load(json_file)
+			OLD_MODEL = markovify.Text.from_json(model2_json)
+			NEW_MODEL = markovify.combine(OLD_MODEL, NEW_MODEL)
 	tool = language_check.LanguageTool('en-GB')
 	Text = ""
 	paragraphText = ""
@@ -46,7 +51,7 @@ def TrainAndSaveString(String, name):
 	os.makedirs(os.path.dirname(FILENAME), exist_ok=True)
 	corpus = String
 	corpus = re.sub( '\s+', ' ', corpus ).strip()
-	text_model = markovify.Text(corpus, state_size=4, chain=None)
+	text_model = markovify.Text(corpus, state_size=3, chain=None)
 	model1_json = text_model.to_json()
 	with open(FILENAME, 'w') as outfile:  
 	    json.dump(model1_json, outfile)
