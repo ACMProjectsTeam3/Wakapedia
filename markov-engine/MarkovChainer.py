@@ -26,7 +26,7 @@ def CreateSentences(Bundle): #definition to generate text. Firstword = word.repl
 		with open(FILE_PATH_OF_OLDSTUFF) as json_file:  
 			model2_json = json.load(json_file)
 		OLD_MODEL = markovify.Text.from_json(model2_json)
-		NEW_MODEL = markovify.combine(OLD_MODEL, NEW_MODEL)
+		NEW_MODEL = markovify.combine([OLD_MODEL, NEW_MODEL], [1,1])
 	tool = language_check.LanguageTool('en-GB')
 	Text = ""
 	paragraphText = ""
