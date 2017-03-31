@@ -63,6 +63,7 @@ def CreateSentences(Bundle): #definition to generate text. First parameter is th
 				Text = NEW_MODEL.make_sentence(tries = 1)
 			matches = tool.check(Text) #checks the grammar of the generated text
 			paragraphText += language_check.correct(Text, matches) #corrects any mistakes the grammar checker found in the text
+			paragraphText += " "
 		Bundle.paragraphs[key] = paragraphText
 		paragraphText = ""
 	return Bundle
