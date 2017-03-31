@@ -18,7 +18,7 @@ class POSifiedText(markovify.Text):
     def word_join(self, words):
         sentence = " ".join(word.split("::")[0] for word in words)
         return sentence
-
+    
 
 def CreateSentences(Bundle): #definition to generate text. Firstword = word.replace(letter,"!") parameter is the file-path to the .txt file you'll be using to train the model, the second parameter is how many sentences you want out of the markov model.
 	FILE_PATH_OF_OLDSTUFF = None
@@ -31,7 +31,7 @@ def CreateSentences(Bundle): #definition to generate text. Firstword = word.repl
  	FILE_PATH_OF_OLDSTUFF = "Categories/%s.mc" % FILE_PATH_OF_OLDSTUFF
  	with open(FILE_PATH_OF_OLDSTUFF) as json_file:  
  		model2_json = json.load(json_file)
- 	NEW_MODEL = POSifiedText.from_json(model2_json)
+ 	NEW_MODEL = markovify.Text.from_json(model2_json)
 	tool = language_check.LanguageTool('en-GB')
 	Text = ""
 	paragraphText = ""
@@ -48,8 +48,8 @@ def CreateSentences(Bundle): #definition to generate text. Firstword = word.repl
 		paragraphText = ""
 	return Bundle
 
-
-
+		
+		
 
 def TrainAndSaveString(String, name):
 	FILENAME  = name
@@ -58,5 +58,5 @@ def TrainAndSaveString(String, name):
 	corpus = re.sub( '\s+', ' ', corpus ).strip()
 	text_model = markovify.Text(corpus, state_size=4, chain=None)
 	model1_json = text_model.to_json()
-	with open(FILENAME, 'w') as outfile:
+	with open(FILENAME, 'w') as outfile:  
 	    json.dump(model1_json, outfile)
