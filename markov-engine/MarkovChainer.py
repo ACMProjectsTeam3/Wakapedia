@@ -10,16 +10,6 @@ import random
 from random import randint
 
 
-class POSifiedText(markovify.Text):
-    def word_split(self, sentence):
-        words = re.split(self.word_split_pattern, sentence)
-        words = [ "::".join(tag) for tag in nltk.pos_tag(words) ]
-        return words
-    def word_join(self, words):
-        sentence = " ".join(word.split("::")[0] for word in words)
-        return sentence
-    
-
 def CreateSentences(Bundle): #definition to generate text. Firstword = word.replace(letter,"!") parameter is the file-path to the .txt file you'll be using to train the model, the second parameter is how many sentences you want out of the markov model.
 	FILE_PATH_OF_OLDSTUFF = None
 	while (FILE_PATH_OF_OLDSTUFF == None):	
@@ -31,7 +21,7 @@ def CreateSentences(Bundle): #definition to generate text. Firstword = word.repl
  	FILE_PATH_OF_OLDSTUFF = "Categories/%s.mc" % FILE_PATH_OF_OLDSTUFF
  	with open(FILE_PATH_OF_OLDSTUFF) as json_file:  
  		model2_json = json.load(json_file)
- 	NEW_MODEL = EditedTextClass.from_json(model2_json)
+ 	NEW_MODEL = markovify.Text.from_json(model2_json)
 	tool = language_check.LanguageTool('en-GB')
 	Text = ""
 	paragraphText = ""
