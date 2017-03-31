@@ -51,8 +51,8 @@ def CreateSentences(Bundle): #definition to generate text. Firstword = word.repl
 		FILE_PATH_OF_OLDSTUFF = x
 		FILE_PATH_OF_OLDSTUFF = FILE_PATH_OF_OLDSTUFF[FILE_PATH_OF_OLDSTUFF.find("Category:") + 9:]
 		for letter in FILE_PATH_OF_OLDSTUFF:
-			if letter == ' ':
-				FILE_PATH_OF_OLDSTUFF = FILE_PATH_OF_OLDSTUFF.replace(letter,"_")
+			if letter == '_':
+				FILE_PATH_OF_OLDSTUFF = FILE_PATH_OF_OLDSTUFF.replace(letter,' ')
 		FILE_PATH_OF_OLDSTUFF = "Categories/%s.mc" % FILE_PATH_OF_OLDSTUFF
 		with open(FILE_PATH_OF_OLDSTUFF) as json_file:  
 			model2_json = json.load(json_file)
