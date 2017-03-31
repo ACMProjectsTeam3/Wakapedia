@@ -34,6 +34,8 @@ def CreateSentences(Bundle): #definition to generate text. Firstword = word.repl
 		NumberOfSentences = random.randint(1,12)
 		for i in range(NumberOfSentences): #creates 'NUMSENTENCES' sentence, where NUMSENTENCES is an integer
 			Text = NEW_MODEL.make_sentence(tries = 100) #this, along with the next while loop, basically just forces the markov model to try an infinite number of times to have SOMETHING come out.
+			if (Text == None):
+				return
 			matches = tool.check(Text) #checks the grammar of the generated text
 			paragraphText += language_check.correct(Text, matches) #corrects any mistakes the grammar checker found in the text
 			paragraphText += " "
