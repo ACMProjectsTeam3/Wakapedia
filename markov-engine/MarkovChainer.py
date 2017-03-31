@@ -13,7 +13,7 @@ from random import randint
 
 def CreateSentences(Bundle): #definition to generate text. Firstword = word.replace(letter,"!") parameter is the file-path to the .txt file you'll be using to train the model, the second parameter is how many sentences you want out of the markov model.
 	FILE_PATH_OF_OLDSTUFF = None 
-	NEW_MODEL = None 
+	NEW_MODEL = markovify.Text("", state_size = 4) 
 	for x in Bundle.categories:
 		FILE_PATH_OF_OLDSTUFF = x
 		if (FILE_PATH_OF_OLDSTUFF == None):	
