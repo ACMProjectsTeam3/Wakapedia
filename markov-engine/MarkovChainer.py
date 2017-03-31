@@ -54,7 +54,7 @@ def CreateSentences(Bundle): #definition to generate text. First parameter is th
 	tool = language_check.LanguageTool('en-GB')
 	Text = ""
 	paragraphText = ""
-	for key in Bundle.paragraphs:
+	for key in Bundle.paragraphs.keys():
 		NumberOfSentences = random.randint(1,15)
 		for i in range(NumberOfSentences): #creates 'NUMSENTENCES' sentence, where NUMSENTENCES is an integer
 			Text = NEW_MODEL.make_sentence(tries = 1) #this, along with the next while loop, basically just forces the markov model to try an infinite number of times to have SOMETHING come out. 
@@ -62,7 +62,7 @@ def CreateSentences(Bundle): #definition to generate text. First parameter is th
 				Text = NEW_MODEL.make_sentence(tries = 1)
 			matches = tool.check(Text) #checks the grammar of the generated text
 			paragraphText += language_check.correct(Text, matches) #corrects any mistakes the grammar checker found in the text
-		Bundle.paragraphs(key) = paragraphText
+		Bundle.paragraphs[key] = paragraphText
 		paragraphText = ""
 	return Bundle
 		
