@@ -5,7 +5,7 @@ Launch shell and run the `wakapedia.sh` script
 ```bash
 $ ./wakapedia.sh
 ```
-###Troubleshooting
+### Troubleshooting
 Make sure flask is running on python 3.5.
 
 
