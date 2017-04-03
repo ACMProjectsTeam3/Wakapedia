@@ -9,7 +9,17 @@ Starting Flask...
  * Serving Flask app "server"
  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 ```
-### Troubleshooting
+
+## Visiting the Webpage
+While running the `wakapedia.sh` script, go to `http://localhost:5000/wiki/<Article_Name>` in a web browser to view a Wakapedia article about **Article_Name**.
+
+Generation of web page may take a few seconds to a couple minutes.
+
+Example:
+![](https://github.com/ACMProjectsTeam3/Wakapedia/blob/master/pics/waka-dog.png)
+
+
+## Troubleshooting
 Make sure flask is running on python 3.5
 ```bash
 $ flask --version
@@ -26,14 +36,6 @@ If flask can not be found but the python 3 flask library is installed, then unin
 $ pip3 uninstall flask
 $ pip3 install flask
 ```
-## Visiting the Webpage
-While running the `wakapedia.sh` script, go to `http://localhost:5000/wiki/<Article_Name>` in a web browser to view a Wakapedia article about **Article_Name**.
-
-Generation of web page may take a few seconds to a couple minutes.
-
-Example:
-![](https://github.com/ACMProjectsTeam3/Wakapedia/blob/master/pics/waka-dog.png)
-
 
 ---
 
