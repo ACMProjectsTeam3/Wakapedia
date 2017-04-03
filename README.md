@@ -26,6 +26,13 @@ If flask can not be found but the python 3 flask library is installed, then unin
 $ pip3 uninstall flask
 $ pip3 install flask
 ```
+## Visiting the Webpage
+Go to `http://localhost:5000/wiki/<Article_Name>` to view a Wakapedia article about **Article_Name**.
+Generation of web page may take a few seconds to a couple minutes.
+
+Example:
+![waka-dog]()
+
 
 ---
 
