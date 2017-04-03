@@ -2,12 +2,30 @@
 
 ## How to Run
 Launch shell and run the `wakapedia.sh` script
-```bash
+```
 $ ./wakapedia.sh
+Defining server application for Flask...
+Starting Flask...
+ * Serving Flask app "server"
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 ```
 ### Troubleshooting
-Make sure flask is running on python 3.5.
-
+Make sure flask is running on python 3.5
+```bash
+$ flask --version
+Flask 0.12.1
+Python 3.5.2 (default, Nov 17, 2016, 17:05:23)
+[GCC 5.4.0 20160609]
+```
+If it runs on python 2, try to uninstall the python 2 flask library
+```bash
+$ pip uninstall flask
+```
+If flask can not be found but the python 3 flask library is installed, then uninstall and reinstall
+```bash
+$ pip3 uninstall flask
+$ pip3 install flask
+```
 
 ---
 
