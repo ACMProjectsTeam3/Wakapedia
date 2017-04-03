@@ -1,5 +1,15 @@
 # Wakapedia
 
+## How to Run
+Launch shell and run the `wakapedia.sh` script
+```bash
+$ ./wakapedia.sh
+```
+###Troubleshooting
+Make sure flask is running on python 3.5.
+
+
+---
 
 DEFINITIONS:
 ************************************************************************
