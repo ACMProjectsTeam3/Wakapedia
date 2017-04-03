@@ -9,6 +9,9 @@
 test-env/
 test.py
 
+# Ignore .html files
+*.html
+
 # Ignore Categories
 Categories/
 GenerateCategoryMC.py
