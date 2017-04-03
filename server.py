@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 File: server.py
 Author: Gerard Geer
@@ -7,6 +8,7 @@ Purpose:
 """
 
 from flask import Flask, request
+from main import main
 
 app = Flask(__name__)
 
@@ -30,8 +32,8 @@ def serve_homepage():
 	"""
 	return 'homepage'
 
-@app.route('/wiki/')
-def serve_wikipage():
+@app.route('/wiki/<article>')
+def serve_wikipage(article):
 	"""
 	Serves a wikipedia page. This is where things get real.
 	
@@ -47,4 +49,6 @@ def serve_wikipage():
 	Postconditions:
 	Returns the MC Wiki page.
 	"""
-	return request.path
+
+	return main(article)
+	#return request.path
