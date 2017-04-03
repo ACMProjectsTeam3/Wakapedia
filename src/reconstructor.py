@@ -1,4 +1,4 @@
-import Bundle
+from .Bundle import Bundle
 
 def reconstruct(b):
     for key in b.paragraphs.keys():

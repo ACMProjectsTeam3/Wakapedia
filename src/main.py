@@ -1,10 +1,10 @@
-from Bundle import Bundle
-from HTMLscraper import scrape
-from reconstructor import reconstruct
-from MarkovChainer import CreateSentences
+from .Bundle import Bundle
+from .HTMLscraper import scrape
+from .reconstructor import reconstruct
+from .MarkovChainer import CreateSentences
 import sys
 
-def main(article):
+def run(article):
   bun = Bundle('https://en.wikipedia.org/wiki/' + str(article), True)
   bun = scrape(bun)
   bun = CreateSentences(bun)
@@ -16,4 +16,4 @@ def main(article):
   return bun.html
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    run(sys.argv[1])

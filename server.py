@@ -8,7 +8,7 @@ Purpose:
 """
 
 from flask import Flask, request
-from main import main
+import src.main as waka
 
 app = Flask(__name__)
 
@@ -50,5 +50,5 @@ def serve_wikipage(article):
 	Returns the MC Wiki page.
 	"""
 
-	return main(article)
+	return waka.run(article)
 	#return request.path

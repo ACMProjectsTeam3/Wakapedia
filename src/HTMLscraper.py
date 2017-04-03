@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup, SoupStrainer
-from Bundle import Bundle
+from .Bundle import Bundle
 import urllib, re, time
 
 """
