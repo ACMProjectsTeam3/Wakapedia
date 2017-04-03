@@ -1,6 +1,5 @@
 from Bundle import Bundle
 from HTMLscraper import scrape
-from RandomCategoryScraper import scrape_category
 from reconstructor import reconstruct
 from MarkovChainer import CreateSentences
 import sys
