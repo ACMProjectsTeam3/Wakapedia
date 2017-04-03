@@ -5,9 +5,6 @@
 *.ipynb
 .ipynb_checkpoints/
 
-# Ignore .html files
-*.html
-
 # Ignore test environment
 test-env/
 test.py

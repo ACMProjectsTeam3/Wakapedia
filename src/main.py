@@ -10,9 +10,11 @@ def run(article):
   bun = CreateSentences(bun)
   bun = reconstruct(bun)
 
-  f = open(str(article) + '.html', 'w')
-  f.write(bun.html)
-  print ('done')
+  filename = 'html/' + str(article) + '.html'
+  os.makedirs(os.path.dirname(filename), exist_ok=True)
+  with open(filename, 'w') as f:
+     f.write(bun.html)
+  
   return bun.html
 
 if __name__ == "__main__":
