@@ -1,0 +1,20 @@
+# Ignore .pyc files
+*.pyc
+
+# Ignore jupyter notebooks
+*.ipynb
+.ipynb_checkpoints/
+
+# Ignore .html files
+*.html
+
+# Ignore test environment
+test-env/
+test.py
+
+# Ignore Categories
+Categories/
+GenerateCategoryMC.py
+MarkovMaker.py
+run
+
