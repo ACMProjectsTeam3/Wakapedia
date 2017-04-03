@@ -27,7 +27,8 @@ $ pip3 uninstall flask
 $ pip3 install flask
 ```
 ## Visiting the Webpage
-Go to `http://localhost:5000/wiki/<Article_Name>` to view a Wakapedia article about **Article_Name**.
+While running the `wakapedia.sh` script, go to `http://localhost:5000/wiki/<Article_Name>` in a web browser to view a Wakapedia article about **Article_Name**.
+
 Generation of web page may take a few seconds to a couple minutes.
 
 Example:
