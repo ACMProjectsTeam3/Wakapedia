@@ -31,7 +31,7 @@ Go to `http://localhost:5000/wiki/<Article_Name>` to view a Wakapedia article ab
 Generation of web page may take a few seconds to a couple minutes.
 
 Example:
-![waka-dog]()
+![](https://github.com/ACMProjectsTeam3/Wakapedia/blob/master/pics/waka-dog.png)
 
 
 ---
