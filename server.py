@@ -9,6 +9,7 @@ Purpose:
 
 from flask import Flask, request
 import src.main as waka
+import src.GenerateCategoryMC as train
 
 app = Flask(__name__)
 
@@ -49,6 +50,10 @@ def serve_wikipage(article):
 	Postconditions:
 	Returns the MC Wiki page.
 	"""
-
+	
+	train.generate_category_chains(article)
 	return waka.run(article)
 	#return request.path
+
+if __name__ == '__main__':
+    app.run(threaded=True)
