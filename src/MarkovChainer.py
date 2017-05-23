@@ -13,7 +13,7 @@ from random import randint
 
 def CreateSentences(Bundle): #definition to generate text. Firstword = word.replace(letter,"!") parameter is the file-path to the .txt file you'll be using to train the model, the second parameter is how many sentences you want out of the markov model.
 	FILE_PATH_OF_OLDSTUFF = None
-	NEW_MODEL = markovify.Text("", state_size = 4)
+	NEW_MODEL = markovify.Text("", state_size = 3)
 	for x in Bundle.categories:
 		FILE_PATH_OF_OLDSTUFF = x
 		FILE_PATH_OF_OLDSTUFF = FILE_PATH_OF_OLDSTUFF[FILE_PATH_OF_OLDSTUFF.find("Category:") + 9:]
@@ -51,7 +51,7 @@ def TrainAndSaveString(String, name):
 	os.makedirs(os.path.dirname(FILENAME), exist_ok=True)
 	corpus = String
 	corpus = re.sub( '\s+', ' ', corpus ).strip()
-	text_model = markovify.Text(corpus, state_size=4, chain=None)
+	text_model = markovify.Text(corpus, state_size=3, chain=None)
 	model1_json = text_model.to_json()
 	with open(FILENAME, 'w') as outfile:
 	    json.dump(model1_json, outfile)
